@@ -1,0 +1,20 @@
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 20px;
+    color: #fdfdfd;
+    border: 1px solid red;
+    background-color: #0e0e0e;
+}
+
+label {
+    font-size: 25px;
+    font-style: initial;
+    color: #fefefe;
+}
+
+body {
+    background-color: #000000;
+}
