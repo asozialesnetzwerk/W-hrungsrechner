@@ -4,9 +4,9 @@ input {
     margin: 8px 0;
     box-sizing: border-box;
     font-size: 20px;
-    color: #fdfdfd;
     border: 1px solid red;
     background-color: #0e0e0e;
+    color: #fdfdfd;
 }
 
 label {
@@ -17,4 +17,8 @@ label {
 
 body {
     background-color: #000000;
+}
+
+.fehler {
+    color:red;
 }

@@ -1,29 +1,57 @@
-const euroFeld = document.getElementById("euro");
-const markFeld = document.getElementById("mark");
-const ostMarkFeld = document.getElementById("ost-mark");
-const schwarzMarkFeld = document.getElementById("schwarz-mark");
+const felder = [
+    document.getElementById("euro"),
+    document.getElementById("mark"),
+    document.getElementById("ost-mark"),
+    document.getElementById("schwarz-mark")
+];
 
-const euro = 1;
-const mark = 2;
-const ostMark = 4;
-const schwarzMark = 20;
+const multiplikator = [
+    1, //Euro
+    2, //Deutsche Mark
+    4, //Ostmark
+    20 //Ostmark auf dem Schwarzmarkt
+];
 
-function setzeAlleFelder(euroWert) {
-    euroFeld.value = euroWert;
-    markFeld.value = euroWert * mark;
-    ostMarkFeld.value = euroWert * ostMark;
-    schwarzMarkFeld.value = euroWert * schwarzMark;
+const regex = /^\d*[.,]\d{2}$/;
+
+for (let i = 0; i < 4; i++) {
+    felder[i].pattern = regex;
+    felder[i].title = "Geldwert mit zwei Nachkommastellen.";
 }
 
-function addEditListener (eingabeFeld, geldWert) {
-    eingabeFeld.oninput = function() {
-        setzeAlleFelder(eingabeFeld.value / geldWert);
+function bekommeAnzeigeWert (wert) {
+    const str = wert.toString().replace(".", ",");
+    if (regex.test(str)) {
+        return str;
+    }
+    const split = str.split(",");
+    if (split.length === 1) {
+        return str + ",00";
+    } else {
+        return split[0] + "," + (split[1] + "00").slice(0, 2);
     }
 }
 
-addEditListener(euroFeld, euro);
-addEditListener(markFeld, mark);
-addEditListener(ostMarkFeld, ostMark);
-addEditListener(schwarzMarkFeld, schwarzMark);
+function setzeAlleFelder (euroWert, ignoriert) {
+    for (let i = 0; i < 4; i++) {
+        const wert = bekommeAnzeigeWert(euroWert * multiplikator[i]);
+        felder[i].placeholder = wert;
+        if (i !== ignoriert) {
+            felder[i].classList.remove("fehler");
+            felder[i].value = wert;
+        }
+    }
+}
 
-setzeAlleFelder(1);
+for (let i = 0; i < 4; i++) {
+    felder[i].oninput = function () {
+        if (regex.test(felder[i].value)) {
+            felder[i].classList.remove("fehler");
+            setzeAlleFelder(felder[i].value.replace(",", ".") / multiplikator[i], i);
+        } else {
+            felder[i].classList.add("fehler");
+        }
+    }
+}
+
+setzeAlleFelder(16, -1);
