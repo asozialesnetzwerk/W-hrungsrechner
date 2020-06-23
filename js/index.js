@@ -14,11 +14,6 @@ const multiplikator = [
 
 const regex = /^\d*[.,]\d{2}$/;
 
-for (let i = 0; i < 4; i++) {
-    felder[i].pattern = regex;
-    felder[i].title = "Geldwert mit zwei Nachkommastellen.";
-}
-
 function bekommeAnzeigeWert (wert) {
     const str = wert.toString().replace(".", ",");
     if (regex.test(str)) {
@@ -32,7 +27,15 @@ function bekommeAnzeigeWert (wert) {
     }
 }
 
+function setEuroParam(euroWert) {
+    let url = window.location.href;
+    const end = url.lastIndexOf("?");
+    url = url.slice(0, end === -1 ? url.length : end) + "?euro=" + euroWert;
+    history.replaceState("", url, url);
+}
+
 function setzeAlleFelder (euroWert, ignoriert) {
+    setEuroParam(euroWert);
     for (let i = 0; i < 4; i++) {
         const wert = bekommeAnzeigeWert(euroWert * multiplikator[i]);
         felder[i].placeholder = wert;
@@ -44,6 +47,8 @@ function setzeAlleFelder (euroWert, ignoriert) {
 }
 
 for (let i = 0; i < 4; i++) {
+    felder[i].pattern = regex;
+    felder[i].title = "Geldwert mit zwei Nachkommastellen.";
     felder[i].oninput = function () {
         if (regex.test(felder[i].value)) {
             felder[i].classList.remove("fehler");
@@ -54,4 +59,9 @@ for (let i = 0; i < 4; i++) {
     }
 }
 
-setzeAlleFelder(16, -1);
+function getEuroParamFromURL(){
+    let results = new RegExp('[\?&]euro=([^&#]*)').exec(window.location.href);
+    return results === null ?  16 : results[1].replace(",", ".");
+}
+
+setzeAlleFelder(getEuroParamFromURL(), -1);
