@@ -44,6 +44,8 @@ function setzeAlleFelder (euroWert, ignoriert) {
             felder[i].value = wert;
         }
     }
+
+    output.value = (euroWert + " Euro, das sind ja " + felder[1].value + " Mark, " + felder[2].value + " Ostmark und " + felder[3].value + " Ostmark auf dem Schwarzmarkt!").replace(/[,.]00/g, "");
 }
 
 for (let i = 0; i < 4; i++) {
@@ -61,7 +63,7 @@ for (let i = 0; i < 4; i++) {
 
 function getEuroParamFromURL(){
     let results = new RegExp('[\?&]euro=([^&#]*)').exec(window.location.href);
-    return results === null ?  16 : results[1].replace(",", ".");
+    return results === null ? (Math.random() > 0.4 ? 16 : 5120) : results[1].replace(",", "."); //5120
 }
 
 setzeAlleFelder(getEuroParamFromURL(), -1);

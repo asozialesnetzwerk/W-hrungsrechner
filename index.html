@@ -1,24 +1,42 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title>Währungsrechner</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <label for="euro">Euro:</label><br>
-    <input id="euro"><br>
-    <br>
-    <label for="mark">D-Mark:</label><br>
-    <input id="mark"><br>
-    <br>
-    <label for="ost-mark">Ostmark:</label><br>
-    <input id="ost-mark"><br>
-    <br>
-    <label for="schwarz-mark">Ostmark auf dem Schwarzmarkt:</label><br>
-    <input id="schwarz-mark"><br>
+    <head>
+        <meta charset="UTF-8">
+        <title>Währungsrechner</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
 
+    <body>
+        <label class="money-label" for="euro">Euro:</label><br>
+        <input id="euro">
+        <br>
+        <label class="money-label" for="mark">D-Mark:</label><br>
+        <input id="mark">
+        <br>
+        <label class="money-label" for="ost-mark">Ostmark:</label><br>
+        <input id="ost-mark">
+        <br>
+        <label class="money-label" for="schwarz-mark">Ostmark auf dem Schwarzmarkt:</label><br>
+        <input id="schwarz-mark">
 
-    <script src="js/index.js"></script>
-</body>
+        <br><br><br>
+
+        <div class="container">
+            <label for="output" class="output float-left">Als Text:</label>
+            <input type="text" readonly class="output output-text float-left" value="" id="output">
+            <button class="output" onclick="copyOutput()">Kopiere Text</button>
+        </div>
+
+        <script>
+            const output = document.getElementById("output");
+            function copyOutput() {
+                output.select();
+                output.setSelectionRange(0, 99999);
+                document.execCommand("copy");
+                alert("Erfolgreich kopiert!")
+            }
+        </script>
+
+        <script src="js/index.js"></script>
+    </body>
 </html>
