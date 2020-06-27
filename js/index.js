@@ -45,7 +45,7 @@ function setzeAlleFelder (euroWert, ignoriert) {
         }
     }
 
-    output.value = (felder[0].value + " Euro, das sind ja " + felder[1].value + " Mark, " + felder[2].value + " Ostmark und " + felder[3].value + " Ostmark auf dem Schwarzmarkt!").replace(/\./g, ",").replace(/,00/g, "");
+    output.value = (felder[0].value + " Euro, das sind ja " + felder[1].value + " Mark; " + felder[2].value + " Ostmark und " + felder[3].value + " Ostmark auf dem Schwarzmarkt!").replace(/\./g, ",").replace(/,00/g, "");
 }
 
 for (let i = 0; i < 4; i++) {
