@@ -54,9 +54,12 @@ for (let i = 0; i < 4; i++) {
     felder[i].oninput = function () {
         if (regex.test(felder[i].value)) {
             felder[i].classList.remove("fehler");
-            setzeAlleFelder(felder[i].value.replace(",", ".") / multiplikator[i], i);
         } else {
             felder[i].classList.add("fehler");
+        }
+        let val = felder[i].value.replace(",", ".");
+        if (!isNaN(val)) { //if it is not Not a Number
+            setzeAlleFelder(val / multiplikator[i], i);
         }
     }
 }
